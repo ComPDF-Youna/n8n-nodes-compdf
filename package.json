@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-compdf",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "n8n community node for ComPDF API - async document processing",
   "keywords": [
     "n8n-community-node-package"
@@ -20,9 +20,10 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc && gulp build:icons",
+    "build": "tsc && gulp build:assets",
     "dev": "tsc --watch",
     "lint": "eslint . --ext .ts",
+    "test": "npm run build && node --test test/*.test.js",
     "prepublishOnly": "npm run build"
   },
   "n8n": {
@@ -39,6 +40,7 @@
     "n8n-workflow": "*"
   },
   "devDependencies": {
+    "@n8n/node-cli": "^0.49.1",
     "@types/node": "^25.3.3",
     "gulp": "^4.0.2",
     "n8n-workflow": "^1.0.0",
