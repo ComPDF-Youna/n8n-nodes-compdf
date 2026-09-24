@@ -8,7 +8,7 @@ import {
 export class CompdfApi implements ICredentialType {
   name = 'compdfApi';
   displayName = 'ComPDF API';
-  documentationUrl = 'https://github.com/youna12345/n8n-nodes-compdf#credentials';
+  documentationUrl = 'https://github.com/ComPDF-Youna/n8n-nodes-compdf#credentials';
   icon = 'file:../nodes/Compdf/compdf.svg' as const;
   authenticate = {
     type: 'generic' as const,

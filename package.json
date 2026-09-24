@@ -6,14 +6,14 @@
     "n8n-community-node-package"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/youna12345/n8n-nodes-compdf",
+  "homepage": "https://github.com/ComPDF-Youna/n8n-nodes-compdf",
   "author": {
     "name": "ComPDF",
     "email": "support@compdf.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/youna12345/n8n-nodes-compdf.git"
+    "url": "https://github.com/ComPDF-Youna/n8n-nodes-compdf.git"
   },
   "main": "index.js",
   "files": [

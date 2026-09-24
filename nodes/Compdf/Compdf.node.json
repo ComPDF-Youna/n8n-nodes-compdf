@@ -6,12 +6,12 @@
 	"resources": {
 		"credentialDocumentation": [
 			{
-				"url": "https://github.com/youna12345/n8n-nodes-compdf#credentials"
+				"url": "https://github.com/ComPDF-Youna/n8n-nodes-compdf#credentials"
 			}
 		],
 		"primaryDocumentation": [
 			{
-				"url": "https://github.com/youna12345/n8n-nodes-compdf"
+				"url": "https://github.com/ComPDF-Youna/n8n-nodes-compdf"
 			}
 		]
 	}

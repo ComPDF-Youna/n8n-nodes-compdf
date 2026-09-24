@@ -20,8 +20,8 @@ jobs:
           package-manager-cache: false
       - run: npm install --global npm@^11.5.1
       - run: npm ci
-      - run: npm run lint
       - run: npm test
+      - run: npm run lint
       - name: Verify release tag matches package version
         env:
           RELEASE_TAG: ${{ github.event.release.tag_name }}
