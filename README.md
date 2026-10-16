@@ -14,7 +14,9 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 
 ## Operations
 
-This node supports the following operations:
+Select a **Resource**, then choose an **Operation** within that resource. The 17 operations are grouped as follows:
+
+Existing workflows retain their saved operation values and API routes. When editing an existing node, select the matching resource to see its operation in the dropdown.
 
 ### Document Conversion
 | Operation | Description |
@@ -32,7 +34,7 @@ This node supports the following operations:
 | **Intelligent Document Extraction** | AI-powered extraction to capture key information and map intelligent fields |
 | **Intelligent Document Parsing** | AI-powered parsing to transform unstructured documents into structured data |
 
-### PDF Tools
+### PDF
 | Operation | Description |
 |---|---|
 | **PDF Generation** | Generate PDFs in batch from HTML templates |
@@ -44,7 +46,7 @@ This node supports the following operations:
 | **Compress** | Compress PDF files without losing visual quality |
 | **Compare Documents** | Compare documents by analyzing text and images |
 
-### Task Management
+### Task
 | Operation | Description |
 |---|---|
 | **Get Task Information** | Query task status and results after processing |
@@ -72,10 +74,10 @@ All file processing operations in this node use the **async processing** pattern
 
 ### Example Workflow
 
-1. Add a **ComPDF** node with operation **PDF to Word**
+1. Add a **ComPDF** node with resource **Document Conversion** and operation **PDF to Word**
 2. Connect it to a source that provides a binary file (e.g., HTTP Request or Read Binary File)
 3. The node returns a `taskId` in the output
-4. Add another **ComPDF** node with operation **Get Task Information**
+4. Add another **ComPDF** node with resource **Task** and operation **Get Task Information**
 5. Pass the `taskId` from step 3 — the node queries the current task status and returns the result
 6. Use an **If** node to check if `taskStatus` is `TaskFinish`, and a **Wait** node to retry if still processing
 
