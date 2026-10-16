@@ -67,30 +67,74 @@ export class Compdf implements INodeType {
     credentials: [{ name: 'compdfApi', required: true }],
     properties: [
       {
+        displayName: 'Resource',
+        name: 'resource',
+        type: 'options',
+        noDataExpression: true,
+        options: [
+          { name: 'Document Conversion', value: 'documentConversion' },
+          { name: 'Intelligent Document Processing', value: 'intelligentDocumentProcessing' },
+          { name: 'PDF', value: 'pdf' },
+          { name: 'Task', value: 'task' },
+        ],
+        default: 'documentConversion',
+      },
+      {
         displayName: 'Operation',
         name: 'operation',
         type: 'options',
         noDataExpression: true,
+        displayOptions: { show: { resource: ['documentConversion'] } },
+        options: [
+          { name: 'Image to Others', value: 'imageToOthers', description: 'Convert image files into other formats, including documents or editable files', action: 'Convert an image' },
+          { name: 'Others to PDF', value: 'othersToPdf', description: 'Convert files such as Word, Excel, PPT, HTML, RTF, images, TXT, or CSV into PDF format', action: 'Convert a file to PDF' },
+          { name: 'PDF to Editable PDF (OCR)', value: 'pdfToEditablePdf', description: 'Convert scanned or image-based PDFs into fully editable and searchable PDFs using OCR', action: 'Make a scanned document editable' },
+          { name: 'PDF to Json', value: 'pdfToJson', description: 'Convert PDF files into JSON', action: 'Extract structured data' },
+          { name: 'PDF to Others', value: 'pdfToOthers', description: 'Convert PDF files into other formats such as Excel, PPT, HTML, RTF, PNG, JPG, TXT, CSV, Markdown', action: 'Convert a document' },
+          { name: 'PDF to Word', value: 'pdfToWord', description: 'Convert PDF files into Word', action: 'Create an editable document' },
+        ],
+        default: 'pdfToWord',
+      },
+      {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        noDataExpression: true,
+        displayOptions: { show: { resource: ['intelligentDocumentProcessing'] } },
+        options: [
+          { name: 'Intelligent Document Extraction', value: 'intelligentDocumentExtraction', description: 'AI-powered extraction to automatically capture key information and map intelligent fields', action: 'Extract document data' },
+          { name: 'Intelligent Document Parsing', value: 'intelligentDocumentParsing', description: 'AI-powered parsing to transform unstructured documents into structured data', action: 'Parse a document' },
+        ],
+        default: 'intelligentDocumentExtraction',
+      },
+      {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        noDataExpression: true,
+        displayOptions: { show: { resource: ['pdf'] } },
         options: [
           { name: 'Compare Documents', value: 'compareDocuments', description: 'Compare documents using Content Compare by analyzing text and images', action: 'Compare documents' },
           { name: 'Compress', value: 'compress', description: 'Compress PDF files with customizable settings without losing visual quality', action: 'Compress a document' },
-          { name: 'Get Task Information', value: 'getTaskInfo', description: 'Query task status and results after processing', action: 'Get task information' },
-          { name: 'Image to Others', value: 'imageToOthers', description: 'Convert image files into other formats, including documents or editable files', action: 'Convert an image' },
-          { name: 'Intelligent Document Extraction', value: 'intelligentDocumentExtraction', description: 'AI-powered extraction to automatically capture key information and map intelligent fields', action: 'Extract document data' },
-          { name: 'Intelligent Document Parsing', value: 'intelligentDocumentParsing', description: 'AI-powered parsing to transform unstructured documents into structured data', action: 'Parse a document' },
-          { name: 'Others to PDF', value: 'othersToPdf', description: 'Convert files such as Word, Excel, PPT, HTML, RTF, images, TXT, or CSV into PDF format', action: 'Convert a file to PDF' },
           { name: 'PDF Extract', value: 'pdfExtract', description: 'Extract images from documents and save them as image files or PDFs', action: 'Extract document images' },
           { name: 'PDF Generation', value: 'pdfGeneration', description: 'Generate PDFs in batch from HTML templates or via a PDF generation API', action: 'Generate a document' },
           { name: 'PDF Merger', value: 'pdfMerger', description: 'Merge multiple PDF files or selected pages from different documents into a single PDF', action: 'Merge documents' },
           { name: 'PDF Page Tools', value: 'pdfPageTools', description: 'Organize PDF pages by splitting, merging, rotating, inserting, or deleting pages', action: 'Organize pages' },
           { name: 'PDF Split', value: 'pdfSplit', description: 'Split a PDF into separate files based on pages or page ranges', action: 'Split a document' },
-          { name: 'PDF to Editable PDF (OCR)', value: 'pdfToEditablePdf', description: 'Convert scanned or image-based PDFs into fully editable and searchable PDFs using OCR', action: 'Make a scanned document editable' },
-          { name: 'PDF to Json', value: 'pdfToJson', description: 'Convert PDF files into JSON', action: 'Extract structured data' },
-          { name: 'PDF to Others', value: 'pdfToOthers', description: 'Convert PDF files into other formats such as Excel, PPT, HTML, RTF, PNG, JPG, TXT, CSV, Markdown', action: 'Convert a document' },
-          { name: 'PDF to Word', value: 'pdfToWord', description: 'Convert PDF files into Word', action: 'Create an editable document' },
           { name: 'Security', value: 'security', description: 'Add or remove watermarks from PDF documents in bulk', action: 'Manage watermarks' },
         ],
-        default: 'pdfToWord',
+        default: 'compress',
+      },
+      {
+        displayName: 'Operation',
+        name: 'operation',
+        type: 'options',
+        noDataExpression: true,
+        displayOptions: { show: { resource: ['task'] } },
+        options: [
+          { name: 'Get Task Information', value: 'getTaskInfo', description: 'Query task status and results after processing', action: 'Get task information' },
+        ],
+        default: 'getTaskInfo',
       },
       {
         displayName: 'Execute Type URL',
@@ -195,11 +239,9 @@ export class Compdf implements INodeType {
           });
           continue;
         }
-        if (error instanceof NodeOperationError || error instanceof NodeApiError) {
-          // eslint-disable-next-line @n8n/community-nodes/require-node-api-error
-          throw error;
-        }
-        throw new NodeApiError(this.getNode(), error as JsonObject, { itemIndex: i });
+        throw (error instanceof NodeOperationError || error instanceof NodeApiError)
+          ? error
+          : new NodeApiError(this.getNode(), error as JsonObject, { itemIndex: i });
       }
     }
 
