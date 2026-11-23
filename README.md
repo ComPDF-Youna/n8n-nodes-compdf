@@ -6,6 +6,8 @@ This is an n8n community node that integrates [ComPDF API](https://api.compdf.co
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/sustainable-use-license/) workflow automation platform.
 
+For package ownership and support information, see the [official ComPDF integration page](https://github.com/ComPDFKit/n8n-integration).
+
 [Installation](#installation) | [Operations](#operations) | [Credentials](#credentials) | [Compatibility](#compatibility) | [Usage](#usage) | [Resources](#resources)
 
 ## Installation
